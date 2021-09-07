@@ -14,6 +14,7 @@ import br.com.devoliga.domain.Cidade;
 import br.com.devoliga.domain.Cliente;
 import br.com.devoliga.domain.Endereco;
 import br.com.devoliga.domain.Estado;
+import br.com.devoliga.domain.ItemPedido;
 import br.com.devoliga.domain.Pagamento;
 import br.com.devoliga.domain.PagamentoComBoleto;
 import br.com.devoliga.domain.PagamentoComCartao;
@@ -26,6 +27,7 @@ import br.com.devoliga.repository.CidadeRepository;
 import br.com.devoliga.repository.ClienteRepository;
 import br.com.devoliga.repository.EnderecoRepository;
 import br.com.devoliga.repository.EstadoRepository;
+import br.com.devoliga.repository.ItemPedidoRepository;
 import br.com.devoliga.repository.PagamentoRepository;
 import br.com.devoliga.repository.PedidoRepository;
 import br.com.devoliga.repository.ProdutoRepository;
@@ -59,6 +61,9 @@ public class GraymarketApplication implements CommandLineRunner{
 	
 	@Autowired
 	PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -127,6 +132,19 @@ public class GraymarketApplication implements CommandLineRunner{
 		
 		pedidoRepository.save(ped1);pedidoRepository.save(ped2);
 		pagamentoRepository.save(pagto1);pagamentoRepository.save(pagto2);
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+	
+		itemPedidoRepository.save(ip1);itemPedidoRepository.save(ip2);itemPedidoRepository.save(ip3);
 	}
 
 }
