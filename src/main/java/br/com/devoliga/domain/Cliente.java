@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.devoliga.domain.enums.TipoCliente;
@@ -42,6 +43,7 @@ private List<Endereco> enderecos = new ArrayList<>();
 @CollectionTable(name="TELEFONE")
 private Set<String> telefones = new HashSet<>();
 
+@JsonBackReference
 @OneToMany(mappedBy="cliente")
 private List<Pedido> pedidos = new ArrayList<>();
 

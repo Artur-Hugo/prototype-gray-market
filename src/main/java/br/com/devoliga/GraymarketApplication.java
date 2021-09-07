@@ -117,7 +117,7 @@ public class GraymarketApplication implements CommandLineRunner{
 		 cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		Pedido ped1 = new Pedido(1, sdf.parse("30/09/2017 10:32"),  cli1, e1);
 		Pedido ped2 = new Pedido(2, sdf.parse("10/10/2017 19:32"),  cli1, e2);
