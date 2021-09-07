@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.devoliga.domain.enums.TipoCliente;
 @Entity
 public class Cliente implements Serializable{
@@ -30,6 +32,7 @@ private String email;
 private String cpfOuCpnj;
 private Integer tipo;
 
+@JsonManagedReference
 @OneToMany(mappedBy = "cliente")
 @NotFound(action = NotFoundAction.IGNORE)
 private List<Endereco> enderecos = new ArrayList<>();
@@ -38,6 +41,9 @@ private List<Endereco> enderecos = new ArrayList<>();
 @ElementCollection
 @CollectionTable(name="TELEFONE")
 private Set<String> telefones = new HashSet<>();
+
+@OneToMany(mappedBy="cliente")
+private List<Pedido> pedidos = new ArrayList<>();
 
 public Cliente() {}
 
@@ -129,6 +135,14 @@ public boolean equals(Object obj) {
 	if (id != other.id)
 		return false;
 	return true;
+}
+
+public List<Pedido> getPedidos() {
+	return pedidos;
+}
+
+public void setPedidos(List<Pedido> pedidos) {
+	this.pedidos = pedidos;
 }
 
 

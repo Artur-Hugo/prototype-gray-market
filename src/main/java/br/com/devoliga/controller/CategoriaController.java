@@ -18,7 +18,7 @@ import br.com.devoliga.repository.CategoriaRepository;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value = "/categorias", method=RequestMethod.GET)
+@RequestMapping(value = "/categorias")
 @CrossOrigin(origins= "*", allowedHeaders="*")
 public class CategoriaController {
 	

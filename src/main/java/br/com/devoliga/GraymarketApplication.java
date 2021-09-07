@@ -1,6 +1,7 @@
 package br.com.devoliga;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,20 @@ import br.com.devoliga.domain.Cidade;
 import br.com.devoliga.domain.Cliente;
 import br.com.devoliga.domain.Endereco;
 import br.com.devoliga.domain.Estado;
+import br.com.devoliga.domain.Pagamento;
+import br.com.devoliga.domain.PagamentoComBoleto;
+import br.com.devoliga.domain.PagamentoComCartao;
+import br.com.devoliga.domain.Pedido;
 import br.com.devoliga.domain.Produto;
+import br.com.devoliga.domain.enums.EstadoPagamento;
 import br.com.devoliga.domain.enums.TipoCliente;
 import br.com.devoliga.repository.CategoriaRepository;
 import br.com.devoliga.repository.CidadeRepository;
 import br.com.devoliga.repository.ClienteRepository;
 import br.com.devoliga.repository.EnderecoRepository;
 import br.com.devoliga.repository.EstadoRepository;
+import br.com.devoliga.repository.PagamentoRepository;
+import br.com.devoliga.repository.PedidoRepository;
 import br.com.devoliga.repository.ProdutoRepository;
 
 @SpringBootApplication
@@ -45,6 +53,12 @@ public class GraymarketApplication implements CommandLineRunner{
 	
 	@Autowired
 	ClienteRepository clienteRepository;
+	
+	@Autowired
+	PedidoRepository pedidoRepository;
+	
+	@Autowired
+	PagamentoRepository pagamentoRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -98,11 +112,21 @@ public class GraymarketApplication implements CommandLineRunner{
 		 cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		
+		Pedido ped1 = new Pedido(1, sdf.parse("30/09/2017 10:32"),  cli1, e1);
+		Pedido ped2 = new Pedido(2, sdf.parse("10/10/2017 19:32"),  cli1, e2);
 		
+		Pagamento pagto1 = new PagamentoComCartao(1, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
 		
+		Pagamento pagto2 = new PagamentoComBoleto(2, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"),null );
+		ped2.setPagamento(pagto2);
 	
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 		
+		pedidoRepository.save(ped1);pedidoRepository.save(ped2);
+		pagamentoRepository.save(pagto1);pagamentoRepository.save(pagto2);
 	}
 
 }
