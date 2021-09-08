@@ -18,6 +18,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.devoliga.domain.enums.TipoCliente;
@@ -33,7 +34,7 @@ private String email;
 private String cpfOuCpnj;
 private Integer tipo;
 
-@JsonManagedReference
+@JsonIgnore
 @OneToMany(mappedBy = "cliente")
 @NotFound(action = NotFoundAction.IGNORE)
 private List<Endereco> enderecos = new ArrayList<>();
