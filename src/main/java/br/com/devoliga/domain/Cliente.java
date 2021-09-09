@@ -34,7 +34,7 @@ private String email;
 private String cpfOuCpnj;
 private Integer tipo;
 
-@JsonIgnore
+
 @OneToMany(mappedBy = "cliente")
 @NotFound(action = NotFoundAction.IGNORE)
 private List<Endereco> enderecos = new ArrayList<>();
