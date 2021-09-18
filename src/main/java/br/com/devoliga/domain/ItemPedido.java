@@ -10,19 +10,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
-	 //È um id imbutido em um tipo auxiliar
 	
 	@JsonIgnore
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
-
+	
 	private Double desconto;
 	private Integer quantidade;
 	private Double preco;
 	
-	public ItemPedido() {}
+	public ItemPedido() {
+	}
 
-	/*No Jpa há uma peculiaridade com a ItemPedidoPK, o mesmo não faz o menor sentido estando no construtor, então colocamos setPedidos e setProdutos*/
 	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
 		super();
 		id.setPedido(pedido);
@@ -32,14 +31,11 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
-	
-	//Para ter acesso direto com o id Pedido e Produto fora da classe atual
 	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
 	
-	@JsonIgnore
 	public Produto getProduto() {
 		return id.getProduto();
 	}
@@ -100,6 +96,5 @@ public class ItemPedido implements Serializable {
 			return false;
 		return true;
 	}
-	
 	
 }

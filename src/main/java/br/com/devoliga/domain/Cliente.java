@@ -14,140 +14,134 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import br.com.devoliga.domain.enums.TipoCliente;
+import br.com.devoliga.enums.TipoCliente;
+
+
+
 @Entity
-public class Cliente implements Serializable{
-private static final long serialVersionUID = 1L;
+public class Cliente implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private long id;
-private String nome;
-private String email;
-private String cpfOuCpnj;
-private Integer tipo;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	private String nome;
+	private String email;
+	private String cpfOuCnpj;
+	private Integer tipo;
+	
+	@OneToMany(mappedBy="cliente")
+	private List<Endereco> enderecos = new ArrayList<>();
+	
+	@ElementCollection
+	@CollectionTable(name="TELEFONE")
+	private Set<String> telefones = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
+	public Cliente() {
+	}
 
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.cpfOuCnpj = cpfOuCnpj;
+		this.tipo = (tipo==null) ? null : tipo.getCod();
+	}
 
-@OneToMany(mappedBy = "cliente")
-@NotFound(action = NotFoundAction.IGNORE)
-private List<Endereco> enderecos = new ArrayList<>();
+	public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-@ElementCollection
-@CollectionTable(name="TELEFONE")
-private Set<String> telefones = new HashSet<>();
+	public String getNome() {
+		return nome;
+	}
 
-@JsonBackReference
-@OneToMany(mappedBy="cliente")
-private List<Pedido> pedidos = new ArrayList<>();
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-public Cliente() {}
+	public String getEmail() {
+		return email;
+	}
 
-public Cliente(long id, String nome, String email, String cpfOuCpnj, TipoCliente tipo) {
-	this.id = id;
-	this.nome = nome;
-	this.email = email;
-	this.cpfOuCpnj = cpfOuCpnj;
-	this.tipo = tipo.getCod();
-}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-public List<Endereco> getEnderecos() {
-	return enderecos;
-}
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
 
-public void setEnderecos(List<Endereco> enderecos) {
-	this.enderecos = enderecos;
-}
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
+	}
 
-public Set<String> getTelefones() {
-	return telefones;
-}
+	public TipoCliente getTipo() {
+		return TipoCliente.toEnum(tipo);
+	}
 
-public void setTelefones(Set<String> telefones) {
-	this.telefones = telefones;
-}
+	public void setTipo(TipoCliente tipo) {
+		this.tipo = tipo.getCod();
+	}
 
-public void setTipo(Integer tipo) {
-	this.tipo = tipo;
-}
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
 
-public long getId() {
-	return id;
-}
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
 
-public void setId(long id) {
-	this.id = id;
-}
+	public Set<String> getTelefones() {
+		return telefones;
+	}
 
-public String getNome() {
-	return nome;
-}
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
 
-public void setNome(String nome) {
-	this.nome = nome;
-}
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
 
-public String getEmail() {
-	return email;
-}
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
-public void setEmail(String email) {
-	this.email = email;
-}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
-public String getCpfOuCpnj() {
-	return cpfOuCpnj;
-}
-
-public void setCpfOuCpnj(String cpfOuCpnj) {
-	this.cpfOuCpnj = cpfOuCpnj;
-}
-
-public TipoCliente getTipo() {
-	return TipoCliente.toEnum(tipo);
-}
-
-public void setTipo(TipoCliente tipo) {
-	this.tipo = tipo.getCod();
-}
-
-@Override
-public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + (int) (id ^ (id >>> 32));
-	return result;
-}
-
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Cliente other = (Cliente) obj;
-	if (id != other.id)
-		return false;
-	return true;
-}
-
-public List<Pedido> getPedidos() {
-	return pedidos;
-}
-
-public void setPedidos(List<Pedido> pedidos) {
-	this.pedidos = pedidos;
-}
-
-
+	}	
 
 }

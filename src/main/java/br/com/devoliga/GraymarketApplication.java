@@ -20,17 +20,17 @@ import br.com.devoliga.domain.PagamentoComBoleto;
 import br.com.devoliga.domain.PagamentoComCartao;
 import br.com.devoliga.domain.Pedido;
 import br.com.devoliga.domain.Produto;
-import br.com.devoliga.domain.enums.EstadoPagamento;
-import br.com.devoliga.domain.enums.TipoCliente;
-import br.com.devoliga.repository.CategoriaRepository;
-import br.com.devoliga.repository.CidadeRepository;
-import br.com.devoliga.repository.ClienteRepository;
-import br.com.devoliga.repository.EnderecoRepository;
-import br.com.devoliga.repository.EstadoRepository;
-import br.com.devoliga.repository.ItemPedidoRepository;
-import br.com.devoliga.repository.PagamentoRepository;
-import br.com.devoliga.repository.PedidoRepository;
-import br.com.devoliga.repository.ProdutoRepository;
+import br.com.devoliga.enums.EstadoPagamento;
+import br.com.devoliga.enums.TipoCliente;
+import br.com.devoliga.repositories.CategoriaRepository;
+import br.com.devoliga.repositories.CidadeRepository;
+import br.com.devoliga.repositories.ClienteRepository;
+import br.com.devoliga.repositories.EnderecoRepository;
+import br.com.devoliga.repositories.EstadoRepository;
+import br.com.devoliga.repositories.ItemPedidoRepository;
+import br.com.devoliga.repositories.PagamentoRepository;
+import br.com.devoliga.repositories.PedidoRepository;
+import br.com.devoliga.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class GraymarketApplication implements CommandLineRunner{
@@ -94,7 +94,7 @@ public class GraymarketApplication implements CommandLineRunner{
 	     produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 		
 	     
-		Estado est1 = new Estado( 1, "Minas Gerais");
+		Estado est1 = new Estado(  1, "Minas Gerais");
 		Estado est2 = new Estado( 2, "São Paulo");
 		estadoRepository.save(est1);estadoRepository.save(est2);
 		Cidade c1 = new Cidade(1, "Uberlândia",est1 );
@@ -108,10 +108,10 @@ public class GraymarketApplication implements CommandLineRunner{
 		
 		
 		
-		Cliente cli1 = new Cliente(3, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(1, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 		clienteRepository.save(cli1);
-		Endereco e1 = new Endereco(1, "Rua Flores", "300", "Apto 303", "Jardim", "38220834",cli1, c1);
-		Endereco e2 = new Endereco(2, "Avenida Matos", "105", "Sala800", "Centro", "38777012", cli1, c2);
+		Endereco e1 = new Endereco( 1, "Rua Flores", "300", "Apto 303", "Jardim", "38220834",cli1, c1);
+		Endereco e2 = new Endereco( 2, "Avenida Matos", "105", "Sala800", "Centro", "38777012", cli1, c2);
 		
 		 enderecoRepository.save(e1);enderecoRepository.save(e2);
 		 cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
@@ -119,8 +119,8 @@ public class GraymarketApplication implements CommandLineRunner{
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Pedido ped1 = new Pedido(1, sdf.parse("30/09/2017 10:32"),  cli1, e1);
-		Pedido ped2 = new Pedido(2, sdf.parse("10/10/2017 19:32"),  cli1, e2);
+		Pedido ped1 = new Pedido( 1, sdf.parse("30/09/2017 10:32"),  cli1, e1);
+		Pedido ped2 = new Pedido( 2, sdf.parse("10/10/2017 19:32"),  cli1, e2);
 		
 		Pagamento pagto1 = new PagamentoComCartao(1, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);

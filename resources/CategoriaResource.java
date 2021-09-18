@@ -1,4 +1,4 @@
-package br.com.devoliga.controller;
+package com.nelioalves.cursomc.resources;
 
 import java.net.URI;
 import java.util.List;
@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.devoliga.domain.Categoria;
-import br.com.devoliga.dto.CategoriaDTO;
-import br.com.devoliga.services.CategoriaService;
+import com.nelioalves.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.dto.CategoriaDTO;
+import com.nelioalves.cursomc.services.CategoriaService;
 
 @RestController
 @RequestMapping(value="/categorias")
-public class CategoriaController {
+public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
