@@ -37,6 +37,7 @@ public class ClienteService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
+	//transactional é para garantir que salva tanto o endereço e cliente na mesma transação de dados.
 	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
