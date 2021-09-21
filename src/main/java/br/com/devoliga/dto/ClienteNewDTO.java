@@ -2,6 +2,7 @@ package br.com.devoliga.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -18,6 +19,7 @@ public class ClienteNewDTO implements Serializable {
 	@Length(min=1, max=120, message="O tamanho deve der entre 1 e 120 caracteres")
 	private String nome;
 	
+	@Column(unique = true)
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Email(message="Email inválido")
 	private String email;

@@ -2,15 +2,17 @@ package br.com.devoliga.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
 import br.com.devoliga.domain.Cliente;
+import br.com.devoliga.services.validation.ClienteUpdate;
 
-
-
+//Faz o update
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

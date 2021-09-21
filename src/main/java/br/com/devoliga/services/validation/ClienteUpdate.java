@@ -12,7 +12,7 @@ import javax.validation.Payload;
 @Target({ ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 
-public @interface ClienteInsert {
+public @interface ClienteUpdate {
 	String message() default "Erro de validação";
 	
 	Class<?>[] groups() default {};
