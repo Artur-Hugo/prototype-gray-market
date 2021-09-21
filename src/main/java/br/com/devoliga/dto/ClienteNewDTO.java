@@ -2,17 +2,39 @@ package br.com.devoliga.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import br.com.devoliga.services.validation.ClienteInsert;
+
+//Anotar o DTO com a anotação criada
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=1, max=120, message="O tamanho deve der entre 1 e 120 caracteres")
 	private String nome;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Email(message="Email inválido")
 	private String email;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String cpfOuCnpj;
+	
 	private Integer tipo;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String logradouro;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String numero;
+	
 	private String complemento;
+	
 	private String bairro;
 	private String cep;
 	
@@ -21,6 +43,7 @@ public class ClienteNewDTO implements Serializable {
 	private String telefone3;
 
 	private Integer cidadeId;
+	
 	
 	public ClienteNewDTO() {
 	}
