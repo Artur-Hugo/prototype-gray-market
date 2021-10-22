@@ -2,9 +2,12 @@ package br.com.devoliga.domain;
 
 import javax.persistence.Entity;
 
-import br.com.devoliga.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import br.com.devoliga.enums.EstadoPagamento;
+//type: valor do cargo adicional
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;
 
