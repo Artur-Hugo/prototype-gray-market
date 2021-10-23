@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -32,6 +33,7 @@ import br.com.devoliga.repositories.PagamentoRepository;
 import br.com.devoliga.repositories.PedidoRepository;
 import br.com.devoliga.repositories.ProdutoRepository;
 
+@Service
 public class DBService {
 	
 	@Autowired
