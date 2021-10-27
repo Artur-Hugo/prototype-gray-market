@@ -1,5 +1,6 @@
 package br.com.devoliga.resources.exception;
 
+
 import java.util.ArrayList;
 import java.util.List;
 

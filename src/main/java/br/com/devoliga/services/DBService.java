@@ -23,6 +23,7 @@ import br.com.devoliga.domain.PagamentoComCartao;
 import br.com.devoliga.domain.Pedido;
 import br.com.devoliga.domain.Produto;
 import br.com.devoliga.enums.EstadoPagamento;
+import br.com.devoliga.enums.Perfil;
 import br.com.devoliga.enums.TipoCliente;
 import br.com.devoliga.repositories.CategoriaRepository;
 import br.com.devoliga.repositories.CidadeRepository;
@@ -33,6 +34,9 @@ import br.com.devoliga.repositories.ItemPedidoRepository;
 import br.com.devoliga.repositories.PagamentoRepository;
 import br.com.devoliga.repositories.PedidoRepository;
 import br.com.devoliga.repositories.ProdutoRepository;
+
+
+///Não tive retorno como deveria, então decidir deixar isso de lado e ir pelo o mais facil
 
 @Service
 public class DBService {
@@ -135,16 +139,24 @@ public class DBService {
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2,c3));
 		
-		
-		
 		Cliente cli1 = new Cliente(1, "Maria Silva", "pokerxadrez4@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("bf1234"));
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		clienteRepository.save(cli1);
+		
+		Cliente cli2 = new Cliente(7, "Ana Costa", "pokerxadrez44@gmail.com", "53104861005", TipoCliente.PESSOAFISICA, pe.encode("bf1234"));
+		cli2.addPerfil(Perfil.ADMIN);
+		cli2.getTelefones().addAll(Arrays.asList("87333323", "81238393"));
+		clienteRepository.save(cli2);
+		
 		Endereco e1 = new Endereco( 1, "Rua Flores", "300", "Apto 303", "Jardim", "38220834",cli1, c1);
 		Endereco e2 = new Endereco( 2, "Avenida Matos", "105", "Sala800", "Centro", "38777012", cli1, c2);
+		Endereco e3 = new Endereco(3, "Avenida Floriano", "2106", null, "Centro", "2817777012", cli2, c2);
 		
-		 enderecoRepository.save(e1);enderecoRepository.save(e2);
+		 enderecoRepository.save(e1);enderecoRepository.save(e2);enderecoRepository.save(e3);
 		 cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
+		
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		

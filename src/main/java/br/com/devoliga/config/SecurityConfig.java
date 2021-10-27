@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/Produtos/**",
 			"/categorias/**"
+			,"/clientes/***"
 	};
 	//Cross-Origin Resource Sharing ou CORS é um mecanismo que permite que recursos restritos em uma página
 	//da web sejam recuperados por outro domínio fora do domínio ao qual pertence o recurso que será recuperado.
