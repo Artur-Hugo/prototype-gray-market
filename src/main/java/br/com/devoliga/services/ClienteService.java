@@ -17,9 +17,12 @@ import br.com.devoliga.domain.Cliente;
 import br.com.devoliga.domain.Endereco;
 import br.com.devoliga.dto.ClienteDTO;
 import br.com.devoliga.dto.ClienteNewDTO;
+import br.com.devoliga.enums.Perfil;
 import br.com.devoliga.enums.TipoCliente;
 import br.com.devoliga.repositories.ClienteRepository;
 import br.com.devoliga.repositories.EnderecoRepository;
+import br.com.devoliga.security.UserSS;
+import br.com.devoliga.services.exceptions.AuthorizationException;
 import br.com.devoliga.services.exceptions.DataIntegrityException;
 import br.com.devoliga.services.exceptions.ObjectNotFoundException;
 
@@ -36,6 +39,12 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
