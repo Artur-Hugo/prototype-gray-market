@@ -3,9 +3,14 @@ package br.com.devoliga.services;
 import java.util.Date;
 import java.util.Optional;
 
+import org.hibernate.annotations.OrderBy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import br.com.devoliga.domain.Cliente;
 import br.com.devoliga.domain.ItemPedido;
 import br.com.devoliga.domain.PagamentoComBoleto;
 import br.com.devoliga.domain.Pedido;
@@ -15,6 +20,8 @@ import br.com.devoliga.repositories.ItemPedidoRepository;
 import br.com.devoliga.repositories.PagamentoRepository;
 import br.com.devoliga.repositories.PedidoRepository;
 import br.com.devoliga.repositories.ProdutoRepository;
+import br.com.devoliga.security.UserSS;
+import br.com.devoliga.services.exceptions.AuthorizationException;
 import br.com.devoliga.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -71,6 +78,16 @@ public class PedidoService {
 		emailService.sendOrderConfirmationHtmlEmail(obj);
 		System.out.println(obj);
 		return obj;
+	}
+	
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente =  clienteService.find(user.getId());
+		return repo.findByCliente(cliente, pageRequest);
 	}
 	
 }
