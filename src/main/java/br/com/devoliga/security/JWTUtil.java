@@ -5,10 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
-=======
 import io.jsonwebtoken.Claims;
->>>>>>> arrumando
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -25,15 +23,13 @@ public class JWTUtil {
 		return Jwts.builder()
 				.setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + expiration))
-<<<<<<< HEAD
+
 				//assinatura do token
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes())
 				.compact();
 	}
-=======
-				.signWith(SignatureAlgorithm.HS512, secret.getBytes())
-				.compact();
-	}
+
+		
 	
 	public boolean tokenValido(String token) {
 		//O Claims armazena as reividicações do token
@@ -69,5 +65,5 @@ public class JWTUtil {
 		}
 	
 	
->>>>>>> arrumando
+
 }

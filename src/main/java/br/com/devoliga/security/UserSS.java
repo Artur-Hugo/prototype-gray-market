@@ -11,17 +11,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import br.com.devoliga.enums.Perfil;
 
 public class UserSS implements UserDetails{
-<<<<<<< HEAD
 	private static final long serialVersionUID = 1L;
 	
 	
-=======
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
->>>>>>> arrumando
+
 	private Integer id;
 	private String email;
 	private String senha;
@@ -29,35 +27,27 @@ public class UserSS implements UserDetails{
 	
 	public UserSS() {}
 	
-<<<<<<< HEAD
-=======
-	
-	
->>>>>>> arrumando
+
 	public UserSS(Integer id, String email, String senha, Set<Perfil> perfis) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
 		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
-<<<<<<< HEAD
-	}
-
-=======
 
 	}
 
 
 
->>>>>>> arrumando
+	
+
+
+
+
 	public Integer getId() {
 		return id;
 	}
-	
-<<<<<<< HEAD
-=======
-	
->>>>>>> arrumando
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -99,10 +89,6 @@ public class UserSS implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
-<<<<<<< HEAD
-=======
-	
 
->>>>>>> arrumando
 
 }
