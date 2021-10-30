@@ -83,9 +83,10 @@ public class UserSS implements UserDetails{
 	}
 
 
+
 	public boolean hasRole(Perfil perfil) {
 		// TODO Auto-generated method stub
-		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao())); 
 	}
 
 
