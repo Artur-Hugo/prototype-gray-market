@@ -10,6 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import br.com.devoliga.domain.Cliente;
 import br.com.devoliga.domain.Pedido;
 
 @Service
@@ -40,6 +41,16 @@ public class SmtpEmailService extends AbstractEmailService {
 		// TODO Auto-generated method stub
 		LOG.info("Simulando envio de email...");
 		javaMailSender.send(msg);
+		LOG.info("Email enviado");
+	}
+
+
+
+	@Override
+	public void sendNewPasswordEmail(Cliente cliente, String newPass) {
+		// TODO Auto-generated method stub
+		LOG.info("Simulando envio de email...");
+		LOG.info("Email enviado, cliente: " + cliente+ ", senha: " + newPass);
 		LOG.info("Email enviado");
 	}
 	
