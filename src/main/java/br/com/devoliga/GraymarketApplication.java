@@ -33,6 +33,7 @@ import br.com.devoliga.repositories.ItemPedidoRepository;
 import br.com.devoliga.repositories.PagamentoRepository;
 import br.com.devoliga.repositories.PedidoRepository;
 import br.com.devoliga.repositories.ProdutoRepository;
+import br.com.devoliga.services.S3Service;
 
 @SpringBootApplication
 public class GraymarketApplication implements CommandLineRunner{
@@ -70,8 +71,14 @@ public class GraymarketApplication implements CommandLineRunner{
 	
 	@Autowired
 	BCryptPasswordEncoder pe;
+	
+	@Autowired
+	private S3Service s3Service;
+	
 	@Override
 	public void run(String... args) throws Exception {
+		//s3Service.uploadFile("C:\\Users\\artur\\Desktop\\ads vida na agua\\Screenshot_10.png");
+		
 		// TODO Auto-generated method stub
 		Categoria cat1 = new Categoria(1, "Informatica");
 		Categoria cat2 = new Categoria(2, "Escritório");
