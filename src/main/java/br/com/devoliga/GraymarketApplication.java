@@ -72,13 +72,9 @@ public class GraymarketApplication implements CommandLineRunner{
 	@Autowired
 	BCryptPasswordEncoder pe;
 	
-	@Autowired
-	private S3Service s3Service;
-	
 	@Override
 	public void run(String... args) throws Exception {
-		//s3Service.uploadFile("C:\\Users\\artur\\Desktop\\ads vida na agua\\Screenshot_10.png");
-		
+	
 		// TODO Auto-generated method stub
 		Categoria cat1 = new Categoria(1, "Informatica");
 		Categoria cat2 = new Categoria(2, "Escritório");
