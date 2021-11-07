@@ -115,6 +115,18 @@ public class ClienteService {
 	
 	//esse método vai repassar a chamada lá para o S3Service
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		URI uri = s3Service.uploadFile(multipartFile);
+		
+		Cliente cli = find(user.getId());
+		cli.setImageUrl(uri.toString());
+		repo.save(cli);
+		
 		return s3Service.uploadFile(multipartFile);
 	}
 }
