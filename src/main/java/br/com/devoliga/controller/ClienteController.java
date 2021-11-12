@@ -42,6 +42,12 @@ public class ClienteController {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@RequestMapping(value = "/email", method=RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@RequestParam(value="value") String email){
+		Cliente obj = service.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = service.fromDTO(objDto);
@@ -50,6 +56,7 @@ public class ClienteController {
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
 	
 
 	/*//Outra forma de fazer o Post, e por Id, put e delete
